@@ -1,0 +1,10 @@
+---
+- hosts: pi
+  become: yes
+
+  tasks:
+  - name: Ensure tempmon is running
+    service:
+      name: tempmon
+      state: started
+      enabled: yes
