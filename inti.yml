@@ -1,4 +1,6 @@
 ---
+- hosts: deb
+  become: true
   tasks:
     - name: Update apt repo and cache on all Debian/Ubuntu boxes
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
