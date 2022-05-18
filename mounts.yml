@@ -1,14 +1,31 @@
 ---
-- hosts: docker
+- name: mounts
+  hosts: docker
+  vars:
+    uri: "//StorageLand/WhemFiles"
+    username: "whembone"
+    password: "No!knowsm3"
+    mountpoint: "/share"
   tasks:
-    - name: Media mount
+    - name: check cifs utility present
+      ansible.builtin.package:
+        name: cifs-utils
+        state: present  
+    - name: create Media mount
       file:
         path: /mnt/Media
         state: directory
         mode: '0777'
 
-    - name: WhemFiles mount
+    - name: create WhemFiles mount
       file:
         path: /mnt/WhemFiles
         state: directory
         mode: '0775'
+    - name: Mount network share
+      ansible.posix.mount:
+        src: "{{ uri }}"
+        path: "{{ mountpoint }}"
+        fstype: cifs
+        opts: 'username={{ username }},password={{ password }}'
+        state: mounted
