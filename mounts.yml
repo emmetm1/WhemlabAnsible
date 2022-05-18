@@ -1,0 +1,14 @@
+---
+- hosts: docker
+  tasks:
+    - name: Media mount
+      file:
+        path: /mnt/Media
+        state: directory
+        mode: '0777'
+
+    - name: WhemFiles mount
+      file:
+        path: /mnt/WhemFiles
+        state: directory
+        mode: '0775'
