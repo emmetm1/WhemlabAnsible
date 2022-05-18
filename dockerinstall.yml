@@ -1,7 +1,7 @@
 - hosts: docker
   roles:
     - geerlingguy.docker
-  Tasks:
+  tasks:
     - name: create docker volume storage
       file:
         path: /home/docker
