@@ -11,7 +11,14 @@
       ansible.builtin.package:
         name: cifs-utils
         state: present  
-        
+
+    - name: check NFS utility present
+      ansible.builtin.apt:
+        name:
+          - nfs-common
+          - nfs4-acl-tools
+        state: present
+
     - name: create Media mount
       file:
         path: /mnt/Media
@@ -36,6 +43,6 @@
       ansible.posix.mount:
         src: 192.168.50.250:/volume1/Media
         path: /mnt/Media
-        opts: rw
+        opts: "defaults"
         state: mounted
         fstype: nfs
