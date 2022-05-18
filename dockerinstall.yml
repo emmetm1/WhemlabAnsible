@@ -1,3 +1,11 @@
 - hosts: docker
   roles:
     - geerlingguy.docker
+  Tasks:
+    - name: create docker volume storage
+      file:
+        path: /home/docker
+        state: directory
+        mode: '0775'
+        owner: emmet
+        group: docker
