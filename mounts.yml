@@ -11,6 +11,7 @@
       ansible.builtin.package:
         name: cifs-utils
         state: present  
+        
     - name: create Media mount
       file:
         path: /mnt/Media
@@ -22,6 +23,7 @@
         path: /mnt/WhemFiles
         state: directory
         mode: '0775'
+
     - name: Mount network share
       ansible.posix.mount:
         src: "{{ uri }}"
@@ -29,3 +31,11 @@
         fstype: cifs
         opts: 'username={{ username }},password={{ password }}'
         state: mounted
+
+    - name: Mount Media
+      ansible.posix.mount:
+        src: 192.168.50.250:/volume1/Media
+        path: /mnt/Media
+        opts: rw
+        state: mounted
+        fstype: nfs
