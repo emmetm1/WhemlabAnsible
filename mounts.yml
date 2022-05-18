@@ -5,7 +5,7 @@
     uri: "//StorageLand/WhemFiles"
     username: "whembone"
     password: "No!knowsm3"
-    mountpoint: "/share"
+    mountpoint: "/mnt/WhemFiles"
   tasks:
     - name: check cifs utility present
       ansible.builtin.package:
