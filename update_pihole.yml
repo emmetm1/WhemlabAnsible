@@ -2,5 +2,6 @@
 - hosts: pihole
 
   tasks:
-  - name: Ensure tempmon is running
-      ansible.builtin.shell: pihole -up
+  - name: Update pi hole
+    ansible.builtin.shell:
+        cmd: pihole -up
