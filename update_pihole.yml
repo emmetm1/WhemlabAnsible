@@ -1,0 +1,6 @@
+---
+- hosts: pihole
+
+  tasks:
+  - name: Ensure tempmon is running
+      ansible.builtin.shell: pihole -up
