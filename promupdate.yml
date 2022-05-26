@@ -5,7 +5,10 @@
     - name: copying file with playbook
       copy:
         src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/prometheus.yml
-        dest: /home/docker/test
+        dest: /home/docker/prometheus/prometheus.yml
         owner: root
         group: root        
         mode: 0644
+
+  - name: restart prometheus
+    command: docker restart prometheus

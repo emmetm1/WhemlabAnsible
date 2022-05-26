@@ -15,4 +15,4 @@ scrape_configs:
   - job_name: servers
     metrics_path: /metrics
     static_configs:
-      - targets: ['localhost:9090', 'mediadocker.whemhome:9100', 'observium.whemhome:9100', 'docker-dev.whemhome:9100', 'datagraph.whemhome:9100', 'chazprox.whemhome:9100', 'bobbyprox.whemhome:9100', 'pihole.whemhome:9100', 'pfsense.whemhome:9100', 'wg.whemhome:9100', 'ansible.whemhome:9100', 'brokenexample:1234']
+      - targets: ['localhost:9090', 'mediadocker.whemhome:9100', 'observium.whemhome:9100', 'docker-dev.whemhome:9100', 'datagraph.whemhome:9100', 'chazprox.whemhome:9100', 'bobbyprox.whemhome:9100', 'pihole.whemhome:9100', 'pfsense.whemhome:9100', 'wg.whemhome:9100', 'ansible.whemhome:9100']
