@@ -11,4 +11,4 @@
         mode: 0644
 
   - name: restart prometheus
-    command: docker restart prometheus
+    command: docker restart prometheus-prometheus-1
