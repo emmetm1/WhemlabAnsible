@@ -1,0 +1,11 @@
+---
+- name: Update prometheus inventory
+  hosts: docker-dev.whemhome
+  tasks:
+    - name: copying file with playbook
+      copy:
+        src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/prometheus.yml
+        dest: /home/docker/test
+        owner: root
+        group: root        
+        mode: 0644
