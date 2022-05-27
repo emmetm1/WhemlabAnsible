@@ -1,0 +1,15 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: 'gmail-notifications'
+
+receivers:
+- name: 'gmail-notifications'
+  email_configs:
+    - from: "whemlabmonitor@gmail.com"
+      to: "emmetm1@gmail.com"
+      smarthost: "smtp.gmail.com:587"
+      auth_username: "emmetm1@gmail.com"
+      auth_identity: 'emmetm1@gmail.com'
+      auth_password: "wtnusgzsqbamsquu"
