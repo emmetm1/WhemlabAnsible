@@ -1,8 +1,8 @@
 ---
-- name: Update prometheus inventory
+- name: Update prometheus inventory & alertmanager
   hosts: docker-dev.whemhome
   tasks:
-    - name: copying file with playbook
+    - name: copying updated prometheus.yml
       copy:
         src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/prometheus.yml
         dest: /home/docker/prometheus/prometheus.yml
@@ -12,3 +12,14 @@
 
     - name: restart prometheus
       command: docker restart prometheus-prometheus-1
+
+    - name: copying updated alert.yml
+      copy:
+        src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/alert.yml
+        dest: /home/docker/prometheus/alert.yml
+        owner: root
+        group: root        
+        mode: 0644
+
+    - name: restart alertmanager
+      command: docker restart prometheus-alertmanager-1
