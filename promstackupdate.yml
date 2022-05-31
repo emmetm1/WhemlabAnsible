@@ -2,8 +2,8 @@
 - name: Update prometheus inventory & alertmanager
   hosts: docker-dev.whemhome
   tasks:
-    - name: copying updated prometheus.yml
-      register: promchange
+    - name: updating prometheus.yml
+      register: promconfig
       copy:
         src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/prometheus.yml
         dest: /home/docker/prometheus/prometheus.yml
@@ -13,10 +13,10 @@
 
     - name: restart prometheus
       command: docker restart prometheus-prometheus-1
-      when: promchange.changed
+      when: promconfig.changed
 
-    - name: copying updated alert.yml
-      register: alertchange
+    - name: updating alert.yml
+      register: alertrules
       copy:
         src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/alert.yml
         dest: /home/docker/prometheus/alert.yml
@@ -26,4 +26,17 @@
 
     - name: restart alertmanager
       command: docker restart prometheus-alertmanager-1
-      when: alertchange.changed
+      when: alertrules.changed
+
+    - name: updating alertmanager.yml
+      register: alertmanagerchange
+      copy:
+        src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/alertmanager.yml
+        dest: /home/docker/alertmanager/alertmanager.yml
+        owner: root
+        group: root        
+        mode: 0644
+
+    - name: restart alertmanager
+      command: docker restart prometheus-alertmanager-1
+      when: alertmanager.changed
