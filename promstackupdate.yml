@@ -29,7 +29,7 @@
       when: alertrules.changed
 
     - name: updating alertmanager.yml
-      register: alertmanagerchange
+      register: alertmanager
       copy:
         src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/alertmanager.yml
         dest: /home/docker/alertmanager/alertmanager.yml
