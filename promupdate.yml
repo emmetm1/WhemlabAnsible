@@ -3,6 +3,7 @@
   hosts: docker-dev.whemhome
   tasks:
     - name: copying updated prometheus.yml
+      register: promchange
       copy:
         src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/prometheus.yml
         dest: /home/docker/prometheus/prometheus.yml
@@ -12,8 +13,10 @@
 
     - name: restart prometheus
       command: docker restart prometheus-prometheus-1
+      when: promchange.changed
 
     - name: copying updated alert.yml
+      register: alertchange
       copy:
         src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/alert.yml
         dest: /home/docker/prometheus/alert.yml
@@ -23,3 +26,4 @@
 
     - name: restart alertmanager
       command: docker restart prometheus-alertmanager-1
+      when: alertchange.changed
