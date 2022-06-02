@@ -21,9 +21,9 @@ scrape_configs:
       - targets: ['localhost:9090', 'mediadocker.whemhome:9100', 'observium.whemhome:9100', 'docker-dev.whemhome:9100', 'datagraph.whemhome:9100', 'chazprox.whemhome:9100', 'bobbyprox.whemhome:9100', 'pihole.whemhome:9100', 'pfsense.whemhome:9100', 'wg.whemhome:9100', 'ansible.whemhome:9100']
 
   # the case to use [ssh_banner] module
-  - job_name: 'Blackbox_ssh'
-    metrics_path: /probe
-    params:
-      module: [ssh_banner]
-    static_configs:
-      - targets: ['mediadocker.whemhome:22', 'observium.whemhome:22', 'docker-dev.whemhome:22', 'datagraph.whemhome:22', 'chazprox.whemhome:22', 'bobbyprox.whemhome:22', 'pihole.whemhome:22', 'pfsense.whemhome:22', 'wg.whemhome:22', 'ansible.whemhome:22']
+  # - job_name: 'Blackbox_ssh'
+  #   metrics_path: /probe
+  #   params:
+  #     module: [ssh_banner]
+  #   static_configs:
+  #     - targets: ['mediadocker.whemhome:22', 'observium.whemhome:22', 'docker-dev.whemhome:22', 'datagraph.whemhome:22', 'chazprox.whemhome:22', 'bobbyprox.whemhome:22', 'pihole.whemhome:22', 'pfsense.whemhome:22', 'wg.whemhome:22', 'ansible.whemhome:22']
