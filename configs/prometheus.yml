@@ -36,6 +36,3 @@ scrape_configs:
       # Make instance label the target
       - source_labels: [__param_target]
         target_label: instance
-      # Actually talk to the blackbox exporter though
-      - target_label: __address__
-        replacement: 192.168.50.169:9115
