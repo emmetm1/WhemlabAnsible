@@ -26,13 +26,4 @@ scrape_configs:
     params:
       module: [ssh_banner]
     static_configs:
-      - targets: ['mediadocker.whemhome', 'observium.whemhome', 'docker-dev.whemhome', 'datagraph.whemhome', 'chazprox.whemhome', 'bobbyprox.whemhome', 'pihole.whemhome', 'pfsense.whemhome', 'wg.whemhome', 'ansible.whemhome']
-    relabel_configs:
-      # Ensure port is 22, pass as URL parameter
-      - source_labels: [__address__]
-        regex: (.*?)(:.*)?
-        replacement: ${1}:22
-        target_label: __param_target
-      # Make instance label the target
-      - source_labels: [__param_target]
-        target_label: instance
+      - targets: ['mediadocker.whemhome:22', 'observium.whemhome:22', 'docker-dev.whemhome:22', 'datagraph.whemhome:22', 'chazprox.whemhome:22', 'bobbyprox.whemhome:22', 'pihole.whemhome:22', 'pfsense.whemhome:22', 'wg.whemhome:22', 'ansible.whemhome:22']
