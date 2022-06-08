@@ -2,20 +2,24 @@ global:
   scrape_interval: 30s
   scrape_timeout: 10s
 
+# Write to Victoria metrics server
 remote_write:
   - url: http://192.168.50.169:8428/api/v1/write
 
+# Name of alerting rules file located in /home/docker/prometheus.
 rule_files:
   - alert.yml
 
+# Point prom to the alertmanager
 alerting:
   alertmanagers:
     - scheme: http
       static_configs:
         - targets: [ 'alertmanager:9093' ]
 
+# scape configs for node exporter (called "servers") and blackbox exporter
 scrape_configs:
-  - job_name: servers
+  - job_name: servers # Use node exporter on each end-point to scrape metrics
     metrics_path: /metrics
     static_configs:
       - targets: ['localhost:9090', 'mediadocker.whemhome:9100', 'observium.whemhome:9100', 'docker-dev.whemhome:9100', 'datagraph.whemhome:9100', 'chazprox.whemhome:9100', 'bobbyprox.whemhome:9100', 'pihole.whemhome:9100', 'pfsense.whemhome:9100', 'wg.whemhome:9100', 'ansible.whemhome:9100']
@@ -25,8 +29,7 @@ scrape_configs:
     static_configs:
       - targets: [docker-dev.whemhome:9115]
 
-#the case to use [ssh_banner] module
-  - job_name: 'Blackbox_ssh'
+  - job_name: 'Blackbox_ssh' # Monitors status of ssh conectivety externally
     metrics_path: /probe
     params:
       module: [ssh_banner]
@@ -39,7 +42,8 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: docker-dev.whemhome:9115  # The blackbox exporter’s real hostname:port
-#
+
+# This block had been pulled from the prometheus docs to test that the blackbox exporter was working. I am leaving it in case I need it again.
 #  - job_name: blackbox-http # To get metrics about the exporter’s targets
 #    metrics_path: /probe
 #    params:
