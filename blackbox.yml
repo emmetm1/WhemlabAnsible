@@ -1,3 +1,0 @@
-- hosts: Blackbox
-  roles:
-    - cloudalchemy.blackbox-exporter
