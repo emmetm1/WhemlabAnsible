@@ -13,3 +13,9 @@ groups:
           summary: "Host out of disk space (instance {{ $labels.instance }})"
           description: "Disk is almost full (< 15% left)"
           value: "{{ $value }}"
+  
+  - name: Blackbox Alerts
+    rules:
+      - alert: ssh down
+        expr: probe_success{job="Blackbox_ssh"} < 1
+        for: 1m
