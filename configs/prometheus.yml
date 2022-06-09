@@ -29,7 +29,7 @@ scrape_configs:
     static_configs:
       - targets: [docker-dev.whemhome:9115]
 
-  - job_name: 'Blackbox_ssh' # Monitors status of ssh conectivety externally
+  - job_name: Blackbox_ssh # Monitors status of ssh conectivety externally
     metrics_path: /probe
     params:
       module: [ssh_banner]
@@ -42,6 +42,24 @@ scrape_configs:
         target_label: instance
       - target_label: __address__
         replacement: docker-dev.whemhome:9115  # The blackbox exporter’s real hostname:port
+
+  - job_name: blackbox-ping
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    srape_interval: 1m
+    scrape_timout: 10s
+    static_configs:
+      - targets:
+        - observium.whemhome   
+    relabel_configs:    # <== This comes from the blackbox exporter README
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: docker-dev.whemhome:9115  # The blackbox exporter’s real hostname:port.
+
 
 # This block had been pulled from the prometheus docs to test that the blackbox exporter was working. I am leaving it in case I need it again.
 #  - job_name: blackbox-http # To get metrics about the exporter’s targets
