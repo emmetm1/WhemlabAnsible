@@ -51,7 +51,7 @@ scrape_configs:
     scrape_timout: 10s
     static_configs:
       - targets:
-        - observium.whemhome   
+        - [observium.whemhome]   
     relabel_configs:    # <== This comes from the blackbox exporter README
       - source_labels: [__address__]
         target_label: __param_target
