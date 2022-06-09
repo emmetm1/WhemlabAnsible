@@ -48,7 +48,7 @@ scrape_configs:
     params:
       module: [icmp]
     scrape_interval: 1m
-    scrape_timout: 10s
+    scrape_timeout: 10s
     static_configs:
       - targets:
         - [observium.whemhome]   
