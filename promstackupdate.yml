@@ -31,7 +31,7 @@
 
     - name: restart alertmanager
       command: docker restart prometheus-alertmanager-1
-      when: alertmanager.changed
+      when: (alertmanager.changed) or (alertrules.changed)
 
     - name: restart prometheus
       command: docker restart prometheus-prometheus-1
