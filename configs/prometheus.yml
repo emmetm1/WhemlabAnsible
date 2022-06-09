@@ -50,8 +50,7 @@ scrape_configs:
     scrape_interval: 1m
     scrape_timeout: 10s
     static_configs:
-      - targets:
-        - [observium.whemhome]   
+      - targets: [observium.whemhome]   
     relabel_configs:    # <== This comes from the blackbox exporter README
       - source_labels: [__address__]
         target_label: __param_target
