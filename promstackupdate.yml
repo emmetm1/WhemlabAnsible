@@ -11,10 +11,6 @@
         group: root        
         mode: 0644
 
-    - name: restart prometheus
-      command: docker restart prometheus-prometheus-1
-      when: promconfig.changed
-
     - name: updating alert.yml
       register: alertrules
       copy:
@@ -23,10 +19,6 @@
         owner: root
         group: root        
         mode: 0644
-
-    - name: restart alertmanager
-      command: docker restart prometheus-alertmanager-1
-      when: alertrules.changed
 
     - name: updating alertmanager.yml
       register: alertmanager
@@ -40,3 +32,7 @@
     - name: restart alertmanager
       command: docker restart prometheus-alertmanager-1
       when: alertmanager.changed
+
+    - name: restart prometheus
+      command: docker restart prometheus-prometheus-1
+      when: (promconfig.changed) or (alertrules.changed)

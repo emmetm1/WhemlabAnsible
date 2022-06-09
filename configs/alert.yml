@@ -4,7 +4,6 @@ groups:
       - alert: InstanceDown
         expr: up{job="servers"} < 1
         for: 5m
-
       - alert: "HostOutOfDiskSpace"
         expr: (node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 15 and ON (instance, device, mountpoint) node_filesystem_readonly == 0
         for: 2m
@@ -14,7 +13,6 @@ groups:
           summary: "Host out of disk space (instance {{ $labels.instance }})"
           description: "Disk is almost full (< 15% left)"
           value: "{{ $value }}"
-
       - alert: HostOutOfMemory
         expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
         for: 2m
@@ -23,7 +21,6 @@ groups:
         annotations:
           summary: Host out of memory (instance {{ $labels.instance }})
           description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-      
         - alert: HostHighCpuLoad
           expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
           for: 2m
@@ -32,7 +29,6 @@ groups:
           annotations:
             summary: Host high CPU load (instance {{ $labels.instance }})
             description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
         - alert: HostCpuHighIowait
           expr: avg by (instance) (rate(node_cpu_seconds_total{mode="iowait"}[5m])) * 100 > 5
           for: 0m
@@ -41,7 +37,6 @@ groups:
           annotations:
             summary: Host CPU high iowait (instance {{ $labels.instance }})
             description: "CPU iowait > 5%. A high iowait means that you are disk or network bound.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-  
         - alert: HostClockNotSynchronising
           expr: min_over_time(node_timex_sync_status[1m]) == 0 and node_timex_maxerror_seconds >= 16
           for: 2m
@@ -50,7 +45,6 @@ groups:
           annotations:
             summary: Host clock not synchronising (instance {{ $labels.instance }})
             description: "Clock not synchronising. Ensure NTP is configured on this host.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
 
   - name: Blackbox Alerts
     rules:
