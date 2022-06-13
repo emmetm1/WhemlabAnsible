@@ -34,7 +34,7 @@ scrape_configs:
     params:
       module: [ssh_banner]
     static_configs:
-      - targets: [observium.whemhome:22]
+      - targets: [observium.whemhome]
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
