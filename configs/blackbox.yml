@@ -1,0 +1,21 @@
+modules:
+  tcp_connect:
+    prober: tcp
+  ssh_banner:
+    prober: tcp
+    tcp:
+      query_response:
+      - expect: "^SSH-2.0-"
+  http_2xx:
+    prober: http
+    http:
+      preferred_ip_protocol: "ip4"
+  http_post_2xx:
+    prober: http
+    http:
+      method: POST
+  icmp:
+    prober: icmp
+    timeout: 5s
+    icmp:
+      preferred_ip_protocol: "ip4"
