@@ -1,5 +1,4 @@
 ---
-
 - hosts: docker-dev.whemhome
   roles:
     - prometheus
