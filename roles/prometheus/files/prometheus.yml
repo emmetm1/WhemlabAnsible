@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 30s
+  scrape_interval: 1ms
   scrape_timeout: 10s
 
 # Write to Victoria metrics server
@@ -34,7 +34,7 @@ scrape_configs:
     params:
       module: [ssh_banner]
     scrape_interval: 1m
-    scrape_timeout: 5s
+    scrape_timeout: 3s
     static_configs:
       - targets: [observium.whemhome:22]
     relabel_configs:
@@ -50,7 +50,7 @@ scrape_configs:
     params:
       module: [icmp]
     scrape_interval: 1m
-    scrape_timeout: 10s
+    scrape_timeout: 3s
     static_configs:
       - targets: [observium.whemhome]   
     relabel_configs:    # <== This comes from the blackbox exporter README
