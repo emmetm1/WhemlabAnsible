@@ -1,5 +1,7 @@
 # WhemlabAnsible
-Ansible deployment for homelab
+Ansible deployment for homelab. Attempting to follow best practices as outlined here: https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html#content-organization
+
+Only works for prometheus at the moment
 
 # Overview
 This repo holds playbooks for a multitude of tasks. This documentation will outline the function of the various playbooks by project. The hosts.ini file contains all groups and hosts for all the project listed below. Some playbooks are run on a schedule from ansible tower at https://ansible.whemhome/#/login
