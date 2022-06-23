@@ -1,37 +1,36 @@
 ---
-- name: Update prometheus inventory & alertmanager
-  tasks:
-    - name: updating prometheus.yml
-      register: promconfig
-      copy:
-        src: prometheus.yml
-        dest: /home/docker/prometheus/prometheus.yml
-        owner: root
-        group: root        
-        mode: 0644
 
-    - name: updating alert.yml
-      register: alertrules
-      copy:
-        src: alert.yml
-        dest: /home/docker/prometheus/alert.yml
-        owner: root
-        group: root        
-        mode: 0644
+- name: updating prometheus.yml
+  register: promconfig
+  copy:
+    src: prometheus.yml
+    dest: /home/docker/prometheus/prometheus.yml
+    owner: root
+    group: root        
+    mode: 0644
 
-    - name: updating alertmanager.yml
-      register: alertmanager
-      copy:
-        src: alertmanager.yml
-        dest: /home/docker/alertmanager/alertmanager.yml
-        owner: root
-        group: root        
-        mode: 0644
+- name: updating alert.yml
+  register: alertrules
+  copy:
+    src: alert.yml
+    dest: /home/docker/prometheus/alert.yml
+    owner: root
+    group: root        
+    mode: 0644
 
-    - name: restart alertmanager
-      command: docker restart prometheus-alertmanager-1
-      when: (alertmanager.changed) or (alertrules.changed)
+- name: updating alertmanager.yml
+  register: alertmanager
+  copy:
+    src: alertmanager.yml
+    dest: /home/docker/alertmanager/alertmanager.yml
+    owner: root
+    group: root        
+    mode: 0644
 
-    - name: restart prometheus
-      command: docker restart prometheus-prometheus-1
-      when: (promconfig.changed) or (alertrules.changed)
+- name: restart alertmanager
+  command: docker restart prometheus-alertmanager-1
+  when: (alertmanager.changed) or (alertrules.changed)
+
+- name: restart prometheus
+  command: docker restart prometheus-prometheus-1
+  when: (promconfig.changed) or (alertrules.changed)
