@@ -1,6 +1,5 @@
 ---
 - name: Update prometheus inventory & alertmanager
-  hosts: docker-dev.whemhome
   tasks:
     - name: updating prometheus.yml
       register: promconfig
