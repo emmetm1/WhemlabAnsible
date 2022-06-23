@@ -5,7 +5,7 @@
     - name: updating prometheus.yml
       register: promconfig
       copy:
-        src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/prometheus.yml
+        src: prometheus.yml
         dest: /home/docker/prometheus/prometheus.yml
         owner: root
         group: root        
@@ -14,7 +14,7 @@
     - name: updating alert.yml
       register: alertrules
       copy:
-        src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/alert.yml
+        src: alert.yml
         dest: /home/docker/prometheus/alert.yml
         owner: root
         group: root        
@@ -23,7 +23,7 @@
     - name: updating alertmanager.yml
       register: alertmanager
       copy:
-        src: /home/AnsibleMaster/playbooks/WhemlabAnsible/configs/alertmanager.yml
+        src: alertmanager.yml
         dest: /home/docker/alertmanager/alertmanager.yml
         owner: root
         group: root        
