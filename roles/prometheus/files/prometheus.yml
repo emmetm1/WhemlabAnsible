@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 1ms
+  scrape_interval: 1m
   scrape_timeout: 10s
 
 # Write to Victoria metrics server
