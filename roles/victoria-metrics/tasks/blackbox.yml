@@ -3,12 +3,19 @@
 - name: Place blackbox from GH in /usr/local/bin
   unarchive:
     src: https://github.com/prometheus/blackbox_exporter/releases/download/v0.22.0/blackbox_exporter-0.22.0.linux-amd64.tar.gz
-    dest: /usr/local/bin
+    dest: /tmp
     remote_src: yes
-    include: 
-      - /blackbox_expoter-*/blackbox-exporter
     owner: root
     group: root
+
+#Move blackbox binary into /usr/local/bin
+- name: Create basic config
+  copy:
+    src: /tmp/blackbox_exporter-*/blackbox_exporter
+    dest: /usr/local/bin
+    owner: root
+    group: root        
+    mode: 0644
 
 #mkdir /etc/blackbox
 - name: Create storage directory
