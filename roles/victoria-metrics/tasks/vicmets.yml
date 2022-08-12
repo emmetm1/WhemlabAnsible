@@ -23,7 +23,6 @@
     remote_src: yes
     owner: root
     group: root
-#place binary in /usr/local/bin
 
 #create storage folder in /var/lib
 - name: Create storage directory
@@ -32,7 +31,6 @@
     state: directory
     owner: victoria-metrics
     group: victoria-metrics
-#set directory ownership to created user
 
 #create systemd service file in /etc/systemd/system
 - name: Create victoria metrics service
