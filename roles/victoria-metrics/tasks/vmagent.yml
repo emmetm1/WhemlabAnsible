@@ -20,7 +20,7 @@
 #create basic config yml
 - name: Create basic scrape config
   copy:
-    src: vmagent-basic.yml
+    src: vmagent-basic.j2
     dest: /etc/vmagent/vmagent.yml
     owner: root
     group: root        
