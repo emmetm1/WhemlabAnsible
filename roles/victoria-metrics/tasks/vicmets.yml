@@ -10,8 +10,8 @@
 - name: Add system user victoria-metrics 
   user:
     name: victoria-metrics
-    shell: /usr/sbin/nologin 
-    home: /var/lib/victoria-metrics 
+    shell: /sbin/nologin 
+    home: /var/lib/victoria-metrics-data
     group: victoria-metrics
     system: yes    
 
@@ -28,7 +28,7 @@
 #create storage folder in /var/lib
 - name: Create storage directory
   ansible.builtin.file:
-    path: /var/lib/victoriametrics
+    path: /var/lib/victoria-metrics-data
     state: directory
     owner: victoria-metrics
     group: victoria-metrics
