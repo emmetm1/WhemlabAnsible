@@ -9,14 +9,14 @@
     group: root
 
 #Move blackbox binary into /usr/local/bin
-- name: Create basic config
+- name: Move blackbox binary into /usr/local/bin
   copy:
     src: /tmp/blackbox_exporter-0.22.0.linux-amd64/blackbox_exporter
     dest: /usr/local/bin
     remote_src: yes
     owner: root
     group: root        
-    mode: 0644
+    mode: 0755
 
 #mkdir /etc/blackbox
 - name: Create storage directory
