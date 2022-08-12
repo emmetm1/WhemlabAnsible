@@ -1,6 +1,6 @@
 ---
 #DL binary from GH
-- name: Place blackbox from GH in /usr/local/bin
+- name: Download and unpack blackbox from GH
   unarchive:
     src: https://github.com/prometheus/blackbox_exporter/releases/download/v0.22.0/blackbox_exporter-0.22.0.linux-amd64.tar.gz
     dest: /tmp
@@ -19,7 +19,7 @@
     mode: 0755
 
 #mkdir /etc/blackbox
-- name: Create storage directory
+- name: Create storage directory /etc/blackbox
   ansible.builtin.file:
     path: /etc/blackbox
     state: directory
@@ -37,7 +37,7 @@
     mode: 0644
 
 #create systemd service file in /etc/systemd/system
-- name: Create blackbox service
+- name: Create blackbox service /etc/systemd/system
   copy:
     src: blackbox-service.txt
     dest: /etc/systemd/system/blackbox.service

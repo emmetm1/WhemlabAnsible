@@ -9,7 +9,7 @@
     group: root
 
 #mkdir /etc/vmagent
-- name: Create storage directory
+- name: Create config directory /etc/vmagent
   ansible.builtin.file:
     path: /etc/vmagent
     state: directory
@@ -27,7 +27,7 @@
     mode: 0644
 
 #create systemd service file in /etc/systemd/system
-- name: Create vmagent service
+- name: Create vmagent service in /etc/systemd/system
   copy:
     src: vmagent-service.txt
     dest: /etc/systemd/system/vmagent.service

@@ -24,8 +24,8 @@
     owner: root
     group: root
 
-#create storage folder in /var/lib
-- name: Create storage directory
+#create storage folder in /var/lib/victoria-metrics-data
+- name: Create storage directory at /var/lib/victoria-metrics-data
   ansible.builtin.file:
     path: /var/lib/victoria-metrics-data
     state: directory
