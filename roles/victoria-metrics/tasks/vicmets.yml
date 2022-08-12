@@ -1,0 +1,63 @@
+---
+#Create group
+- name: Ensure system group victoria-metrics exists
+  group:
+    name: victoria-metrics
+    state: present
+    system: yes
+
+#Create user
+- name: Add system user victoria-metrics 
+  user:
+    name: victoria-metrics
+    shell: /usr/sbin/nologin 
+    group: victoria-metrics
+    system: yes    
+
+#DL binary from GH
+- name: Place vicmets binary from GH in /usr/local/bin
+  unarchive:
+    src: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.80.0/victoria-metrics-linux-amd64-v1.80.0.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+    owner: root
+    group: root
+#place binary in /usr/local/bin
+
+#create storage folder in /var/lib
+- name: Create storage directory
+  ansible.builtin.file:
+    path: /var/lib/victoriametrics
+    state: directory
+    owner: victoria-metrics
+    group: victoria-metrics
+#set directory ownership to created user
+
+#create systemd service file in /etc/systemd/system
+- name: Create victoria metrics service
+  copy:
+    src: victoriametrics-service.txt
+    dest: /etc/systemd/system/victoriametrics.service
+    owner: root
+    group: root        
+    mode: 0644
+
+#reload systemd
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+#enable service
+- name: Enable and start victoria metrics service
+  service:
+    name: victoriametrics.service
+    enabled: yes
+    state: started
+
+#firewall rules for port 8428
+- firewalld:
+    port: 8428/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public

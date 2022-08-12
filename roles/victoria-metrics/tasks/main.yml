@@ -1,0 +1,3 @@
+---
+- name: Instal Victoria Metrics as a service
+  include: vicmets.yml
