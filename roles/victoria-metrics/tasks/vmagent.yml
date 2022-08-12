@@ -1,1 +1,56 @@
 ---
+#DL binary from GH
+- name: Place vmagent and other utils from GH in /usr/local/bin
+  unarchive:
+    src: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.80.0/vmutils-linux-amd64-v1.80.0.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+    owner: root
+    group: root
+
+#mkdir /etc/vmagent
+- name: Create storage directory
+  ansible.builtin.file:
+    path: /etc/vmagent
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+
+#create basic config yml
+- name: Create basic scrape config
+  copy:
+    src: vmagent-basic.yml
+    dest: /etc/vmagent/vmagent.yml
+    owner: root
+    group: root        
+    mode: 0644
+
+#create systemd service file in /etc/systemd/system
+- name: Create vmagent service
+  copy:
+    src: vmagent-service.txt
+    dest: /etc/systemd/system/vmagent.service
+    owner: root
+    group: root        
+    mode: 0644
+
+#reload systemd
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+#enable service
+- name: Enable and start vmagent service
+  service:
+    name: vmagent.service
+    enabled: yes
+    state: started
+
+#firewall rules for port 8429
+- firewalld:
+    port: 8428/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public

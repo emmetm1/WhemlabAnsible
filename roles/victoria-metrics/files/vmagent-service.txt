@@ -1,0 +1,22 @@
+[Unit]
+Description=Scrapes remote node exporter targets
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+StartLimitBurst=5
+StartLimitInterval=0
+Restart=on-failure
+RestartSec=1
+ExecStart=/usr/local/bin/vmagent-prod \
+        -promscrape.config=/path/to/prometheus.yml \
+        -remoteWrite.url=https://127.0.0.1:8428/api/v1/write \
+        -httpListenAddr=0.0.0.0:8429 \
+ExecStop=/bin/kill -s SIGTERM $MAINPID
+LimitNOFILE=65536
+LimitNPROC=32000
+
+[Install]
+WantedBy=multi-user.target

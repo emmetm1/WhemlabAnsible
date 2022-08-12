@@ -1,3 +1,6 @@
 ---
 - name: Instal Victoria Metrics as a service
   include: vicmets.yml
+
+- name: Instal VMagent as a service and provide basic config
+  include: vmagent.yml
