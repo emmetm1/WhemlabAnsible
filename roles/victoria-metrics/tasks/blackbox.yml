@@ -1,1 +1,57 @@
 ---
+#DL binary from GH
+- name: Place blackbox from GH in /usr/local/bin
+  unarchive:
+    src: https://github.com/prometheus/blackbox_exporter/releases/download/v0.22.0/blackbox_exporter-0.22.0.linux-amd64.tar.gz
+    dest: /usr/local/bin
+    include: blackbox_exporter
+    remote_src: yes
+    owner: root
+    group: root
+
+#mkdir /etc/blackbox
+- name: Create storage directory
+  ansible.builtin.file:
+    path: /etc/blackbox
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+
+#create basic config yml
+- name: Create basic config
+  copy:
+    src: blackbox.yml
+    dest: /etc/blackbox/blackbox.yml
+    owner: root
+    group: root        
+    mode: 0644
+
+#create systemd service file in /etc/systemd/system
+- name: Create blackbox service
+  copy:
+    src: blackbox-service.txt
+    dest: /etc/systemd/system/blackbox.service
+    owner: root
+    group: root        
+    mode: 0644
+
+#reload systemd
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+#enable service
+- name: Enable and start blackbox service
+  service:
+    name: blackbox.service
+    enabled: yes
+    state: started
+
+#firewall rules for port 9115
+- firewalld:
+    port: 9115/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
