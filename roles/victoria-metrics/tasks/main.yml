@@ -4,3 +4,6 @@
 
 - name: Instal VMagent as a service and provide basic config
   include: vmagent.yml
+
+- name: Instal Blackbox Exporter as a service and provide basic config
+  include: blackbox.yml
