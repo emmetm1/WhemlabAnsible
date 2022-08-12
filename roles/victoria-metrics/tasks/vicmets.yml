@@ -11,6 +11,7 @@
   user:
     name: victoria-metrics
     shell: /usr/sbin/nologin 
+    home: /var/lib/victoria-metrics 
     group: victoria-metrics
     system: yes    
 
@@ -20,8 +21,8 @@
     src: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.80.0/victoria-metrics-linux-amd64-v1.80.0.tar.gz
     dest: /usr/local/bin
     remote_src: yes
-    owner: victoria-metrics
-    group: victoria-metrics
+    owner: root
+    group: root
 #place binary in /usr/local/bin
 
 #create storage folder in /var/lib
@@ -38,8 +39,8 @@
   copy:
     src: victoriametrics-service.txt
     dest: /etc/systemd/system/victoriametrics.service
-    owner: victoria-metrics
-    group: victoria-metrics        
+    owner: root
+    group: root        
     mode: 0644
 
 #reload systemd
