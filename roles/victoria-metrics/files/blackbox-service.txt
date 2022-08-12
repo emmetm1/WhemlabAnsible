@@ -12,7 +12,9 @@ Restart=on-failure
 RestartSec=1
 LimitNOFILE=65536
 LimitNPROC=32000
-ExecStart=/usr/local/bin/blackbox_exporter --config.file=/etc/blackbox/blackbox.yml web.listen-address=0.0.0.0:9115
+ExecStart=/usr/local/bin/blackbox_exporter \
+         --config.file=/etc/blackbox/blackbox.yml \
+         --web.listen-address=:9115 \
 
 [Install]
 WantedBy=multi-user.target
