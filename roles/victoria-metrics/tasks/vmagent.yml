@@ -49,7 +49,7 @@
 
 #firewall rules for port 8429
 - firewalld:
-    port: 8428/tcp
+    port: 8429/tcp
     permanent: yes
     immediate: yes
     state: enabled
