@@ -10,3 +10,6 @@
 
 - name: Instal vmalert as a service and provide basic config
   include: vmalert.yml
+
+- name: Instal vmalert as a service and provide basic config
+  include: alertmanager.yml
