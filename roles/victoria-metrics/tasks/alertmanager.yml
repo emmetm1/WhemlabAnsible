@@ -1,0 +1,74 @@
+---
+#DL binary from GH
+- name: Download and unpack alertmanager from GH
+  unarchive:
+    src: https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-amd64.tar.gz
+    dest: /tmp
+    remote_src: yes
+    owner: root
+    group: root
+
+#Move alertmanager binary into /usr/local/bin
+- name: Move alertmanager binary into /usr/local/bin
+  copy:
+    src: /tmp/alertmanager-0.24.0.linux-amd64/alertmanager
+    dest: /usr/local/bin
+    remote_src: yes
+    owner: root
+    group: root        
+    mode: 0755
+
+#create storage folder in /var/lib/alertmanager
+- name: Create storage directory at /var/lib/alertmanager
+  ansible.builtin.file:
+    path: /var/lib/alertmanager
+    state: directory
+    owner: root
+    group: root
+
+#mkdir /etc/alertmanager
+- name: Create storage directory /etc/alertmanager
+  ansible.builtin.file:
+    path: /etc/alertmanager
+    state: directory
+    owner: root
+    group: root
+    mode: 0644
+
+#create basic config yml
+- name: Create basic config
+  copy:
+    src: alertmanager-basic.yml
+    dest: /etc/alertmanager/alertmanager.yml
+    owner: root
+    group: root        
+    mode: 0644
+
+#create systemd service file in /etc/systemd/system
+- name: Create alertmanager service /etc/systemd/system
+  copy:
+    src: alertmanager-service.txt
+    dest: /etc/systemd/system/alertmanager.service
+    owner: root
+    group: root        
+    mode: 0644
+
+#reload systemd
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+#enable service
+- name: Enable and start alertmanager service
+  service:
+    name: alertmanager.service
+    enabled: yes
+    state: started
+
+#firewall rules for port 9093
+- firewalld:
+    port: 9093/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
