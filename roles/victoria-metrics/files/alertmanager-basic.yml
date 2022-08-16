@@ -1,7 +1,8 @@
 global:
-
+  resolve_timeout: 1m
 
 route:
-
+  receiver: "blackhole"
 
 receivers:
+  - name: "blackhole"

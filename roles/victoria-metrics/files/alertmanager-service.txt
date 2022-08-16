@@ -1,5 +1,5 @@
 [Unit]
-Description=Performs external checks of remote targets
+Description=Allows managment of firing alerts
 After=network.target
 
 [Service]
@@ -13,8 +13,8 @@ RestartSec=1
 LimitNOFILE=65536
 LimitNPROC=32000
 ExecStart=/usr/local/bin/alertmanager \
-         --config.file /etc/alertmanager/alertmanager.yml 
-         --storage.path /var/lib/alertmanager/
-
+         --config.file=/etc/alertmanager/alertmanager.yml \
+         --storage.path=/var/lib/alertmanager/ \
+         
 [Install]
 WantedBy=multi-user.target
