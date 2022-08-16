@@ -7,3 +7,6 @@
 
 - name: Instal Blackbox Exporter as a service and provide basic config
   include: blackbox.yml
+
+- name: Instal vmalert as a service and provide basic config
+  include: vmalert.yml
