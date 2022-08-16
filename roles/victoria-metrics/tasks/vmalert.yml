@@ -2,7 +2,7 @@
 #mkdir /etc/vmalert
 - name: Create config directory /etc/vmalert
   ansible.builtin.file:
-    path: /etc/vmalert
+    path: /etc/vmalert/alerts
     state: directory
     owner: root
     group: root
