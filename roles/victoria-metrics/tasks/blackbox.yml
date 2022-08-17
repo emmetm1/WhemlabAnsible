@@ -1,4 +1,12 @@
 ---
+#firewall rules for port 9115
+- firewalld:
+    port: 9115/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
+
 #DL binary from GH
 - name: Download and unpack blackbox from GH
   unarchive:
@@ -57,10 +65,7 @@
     enabled: yes
     state: started
 
-#firewall rules for port 9115
-- firewalld:
-    port: 9115/tcp
-    permanent: yes
-    immediate: yes
-    state: enabled
-    zone: public
+- name: Check if blackbox is running
+  command: systemctl status blackbox
+  ignore_errors: yes
+  changed_when: false

@@ -1,4 +1,12 @@
 ---
+#firewall rules for port 8880
+- firewalld:
+    port: 8880/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
+
 #mkdir /etc/vmalert
 - name: Create config directory /etc/vmalert
   ansible.builtin.file:
@@ -38,10 +46,7 @@
     enabled: yes
     state: started
 
-#firewall rules for port 8880
-- firewalld:
-    port: 8880/tcp
-    permanent: yes
-    immediate: yes
-    state: enabled
-    zone: public
+- name: Check if vmalert is running
+  command: systemctl status vmalert
+  ignore_errors: yes
+  changed_when: false

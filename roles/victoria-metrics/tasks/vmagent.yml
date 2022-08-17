@@ -8,6 +8,14 @@
     owner: root
     group: root
 
+#firewall rules for port 8429
+- firewalld:
+    port: 8429/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
+
 #mkdir /etc/vmagent
 - name: Create config directory /etc/vmagent
   ansible.builtin.file:
@@ -47,10 +55,7 @@
     enabled: yes
     state: started
 
-#firewall rules for port 8429
-- firewalld:
-    port: 8429/tcp
-    permanent: yes
-    immediate: yes
-    state: enabled
-    zone: public
+- name: Check if vmagent is running
+  command: systemctl status vmagent
+  ignore_errors: yes
+  changed_when: false

@@ -1,4 +1,12 @@
 ---
+#firewall rules for port 8428
+- firewalld:
+    port: 8428/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
+
 #Create group
 - name: Ensure system group victoria-metrics exists
   group:
@@ -53,10 +61,7 @@
     enabled: yes
     state: started
 
-#firewall rules for port 8428
-- firewalld:
-    port: 8428/tcp
-    permanent: yes
-    immediate: yes
-    state: enabled
-    zone: public
+- name: Check if victoriametrics is running
+  command: systemctl status victoriametrics
+  ignore_errors: yes
+  changed_when: false

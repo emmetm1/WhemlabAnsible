@@ -1,4 +1,12 @@
 ---
+#firewall rules for port 9093
+- firewalld:
+    port: 9093/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
+
 #DL binary from GH
 - name: Download and unpack alertmanager from GH
   unarchive:
@@ -65,10 +73,7 @@
     enabled: yes
     state: started
 
-#firewall rules for port 9093
-- firewalld:
-    port: 9093/tcp
-    permanent: yes
-    immediate: yes
-    state: enabled
-    zone: public
+- name: Check if alertmanager is running
+  command: systemctl status alertmanager
+  ignore_errors: yes
+  changed_when: false
