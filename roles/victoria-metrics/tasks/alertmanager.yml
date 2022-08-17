@@ -24,7 +24,7 @@
     remote_src: yes
     owner: root
     group: root        
-    mode: 0755
+    mode: "644"
 
 #create storage folder in /var/lib/alertmanager
 - name: Create storage directory at /var/lib/alertmanager
@@ -33,6 +33,7 @@
     state: directory
     owner: root
     group: root
+    mode: "774"
 
 #mkdir /etc/alertmanager
 - name: Create storage directory /etc/alertmanager
@@ -41,7 +42,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0644
+    mode: "774"
 
 #create basic config yml
 - name: Create basic config
@@ -50,7 +51,7 @@
     dest: /etc/alertmanager/alertmanager.yml
     owner: root
     group: root        
-    mode: 0644
+    mode: "774"
 
 #create systemd service file in /etc/systemd/system
 - name: Create alertmanager service /etc/systemd/system
@@ -59,7 +60,7 @@
     dest: /etc/systemd/system/alertmanager.service
     owner: root
     group: root        
-    mode: 0644
+    mode: "664"
 
 #reload systemd
 - name: Reload systemd

@@ -24,7 +24,7 @@
     remote_src: yes
     owner: root
     group: root        
-    mode: 0755
+    mode: "774"
 
 #mkdir /etc/blackbox
 - name: Create storage directory /etc/blackbox
@@ -33,7 +33,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0644
+    mode: "774"
 
 #create basic config yml
 - name: Create basic config
@@ -42,7 +42,7 @@
     dest: /etc/blackbox/blackbox.yml
     owner: root
     group: root        
-    mode: 0644
+    mode: "774"
 
 #create systemd service file in /etc/systemd/system
 - name: Create blackbox service /etc/systemd/system
@@ -51,7 +51,7 @@
     dest: /etc/systemd/system/blackbox.service
     owner: root
     group: root        
-    mode: 0644
+    mode: "644"
 
 #reload systemd
 - name: Reload systemd

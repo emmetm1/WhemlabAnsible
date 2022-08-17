@@ -39,6 +39,7 @@
     state: directory
     owner: victoria-metrics
     group: victoria-metrics
+    mode: "774"
 
 #create systemd service file in /etc/systemd/system
 - name: Create victoria metrics service
@@ -47,7 +48,7 @@
     dest: /etc/systemd/system/victoriametrics.service
     owner: root
     group: root        
-    mode: 0644
+    mode: "644"
 
 #reload systemd
 - name: Reload systemd
