@@ -14,7 +14,7 @@ LimitNOFILE=65536
 LimitNPROC=32000
 ExecStart=/usr/local/bin/alertmanager \
          --config.file=/etc/alertmanager/alertmanager.yml \
-         --storage.path=/var/lib/alertmanager/ \
+         --storage.path=/var/lib/alertmanager/ 
          
 [Install]
 WantedBy=multi-user.target
