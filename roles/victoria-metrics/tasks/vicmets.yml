@@ -1,6 +1,7 @@
 ---
 #firewall rules for port 8428
-- firewalld:
+- name: Open port 8428
+  firewalld: 
     port: 8428/tcp
     permanent: yes
     immediate: yes

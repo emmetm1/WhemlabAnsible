@@ -1,6 +1,7 @@
 ---
 #firewall rules for port 8880
-- firewalld:
+- name: Open port 8880
+  firewalld: 
     port: 8880/tcp
     permanent: yes
     immediate: yes

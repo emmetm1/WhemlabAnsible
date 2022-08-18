@@ -9,7 +9,8 @@
     group: root
 
 #firewall rules for port 8429
-- firewalld:
+- name: Open port 8429
+  firewalld: 
     port: 8429/tcp
     permanent: yes
     immediate: yes

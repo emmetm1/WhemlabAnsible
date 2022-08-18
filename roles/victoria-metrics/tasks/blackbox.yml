@@ -1,6 +1,7 @@
 ---
 #firewall rules for port 9115
-- firewalld:
+- name: Open port 9115
+  firewalld: 
     port: 9115/tcp
     permanent: yes
     immediate: yes
@@ -24,7 +25,7 @@
     remote_src: yes
     owner: root
     group: root        
-    mode: "774"
+    mode: "751"
 
 #mkdir /etc/blackbox
 - name: Create storage directory /etc/blackbox

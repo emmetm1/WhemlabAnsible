@@ -1,6 +1,7 @@
 ---
 #firewall rules for port 9093
-- firewalld:
+- name: Open port 9093
+  firewalld: 
     port: 9093/tcp
     permanent: yes
     immediate: yes
@@ -24,6 +25,7 @@
     remote_src: yes
     owner: root
     group: root        
+    mode: "751"
 
 #create storage folder in /var/lib/alertmanager
 - name: Create storage directory at /var/lib/alertmanager
