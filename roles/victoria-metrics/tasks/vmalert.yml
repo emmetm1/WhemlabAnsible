@@ -12,8 +12,8 @@
   ansible.builtin.file:
     path: /etc/vmalert/alerts
     state: directory
-    owner: root
-    group: root
+    owner: vicstack
+    group: vicstack
     mode: "774"
 
 #create basic config yml
@@ -21,8 +21,8 @@
   copy:
     src: vmalert-basic.txt
     dest: /etc/vmalert/alerts/vmalert.yml
-    owner: root
-    group: root        
+    owner: vicstack
+    group: vicstack        
     mode: "774"
 
 #create systemd service file in /etc/systemd/system
