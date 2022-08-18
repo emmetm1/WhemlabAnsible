@@ -1,0 +1,26 @@
+#create basic config yml
+- name: Create basic server scrape yml
+  copy:
+    src: server_scrape.yml
+    dest: /etc/vmagent/server_scrape.yml
+    owner: vicstack
+    group: vicstack        
+    mode: "774"
+
+#create basic config yml
+- name: Create basic scrape config
+  copy:
+    src: blackbox_ssh.yml
+    dest: /etc/vmagent/blackbox_ssh.yml
+    owner: vicstack
+    group: vicstack        
+    mode: "774"
+
+#create basic config yml
+- name: Create basic scrape config
+  copy:
+    src: blackbox_ping.yml
+    dest: /etc/vmagent/blackbox_ping.yml
+    owner: vicstack
+    group: vicstack        
+    mode: "774"

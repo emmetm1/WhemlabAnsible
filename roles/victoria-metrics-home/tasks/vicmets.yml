@@ -1,0 +1,69 @@
+---
+#firewall rules for port 8428
+- name: Open port 8428
+  firewalld: 
+    port: 8428/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
+
+#Create group
+- name: Ensure system group vicstack exists
+  group:
+    name: vicstack
+    state: present
+    system: yes
+
+#Create user
+- name: Add system user vicstack 
+  user:
+    name: vicstack
+    shell: /sbin/nologin 
+    create_home: no
+    group: vicstack
+    system: yes    
+
+#DL binary from GH
+- name: Place vicmets binary from GH in /usr/local/bin
+  unarchive:
+    src: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.80.0/victoria-metrics-linux-amd64-v1.80.0.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+    owner: root
+    group: root
+
+#create storage folder in /var/lib/victoria-metrics-data
+- name: Create storage directory at /var/lib/victoria-metrics-data
+  ansible.builtin.file:
+    path: /var/lib/victoria-metrics-data
+    state: directory
+    owner: vicstack
+    group: vicstack
+    mode: "774"
+
+#create systemd service file in /etc/systemd/system
+- name: Create victoria metrics service
+  copy:
+    src: victoriametrics-service.txt
+    dest: /etc/systemd/system/victoriametrics.service
+    owner: root
+    group: root        
+    mode: "644"
+
+#reload systemd
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+#enable service
+- name: Enable and start victoria metrics service
+  service:
+    name: victoriametrics.service
+    enabled: yes
+    state: started
+
+- name: Check if victoriametrics is running
+  command: systemctl status victoriametrics
+  ignore_errors: yes
+  changed_when: false

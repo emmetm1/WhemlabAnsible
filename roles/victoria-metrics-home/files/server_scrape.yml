@@ -1,0 +1,31 @@
+---
+- targets:
+  - pihole.whemhome:9100
+  - pfsense.whemhome:9100
+  - wg.whemhome:9100
+  labels:
+    "type" : "networking"
+    "envi" : "whemhome"
+
+- targets:
+  - mediadocker.whemhome:9100
+  - docker-dev.whemhome:9100
+  labels:
+    "type" : "docker"
+    "envi" : "whemhome"
+
+- targets:
+  - chazprox.whemhome:9100
+  - bobbyprox.whemhome:9100
+  labels:
+    "type" : "proxmox"
+    "envi" : "whemhome"
+
+- targets:
+  - observium.whemhome:9100
+  - datagraph.whemhome:9100
+  - ansible.whemhome:9100
+  - vicmets.whemhome:9100
+  labels:
+    "type" : "tooling"
+    "envi" : "whemhome"

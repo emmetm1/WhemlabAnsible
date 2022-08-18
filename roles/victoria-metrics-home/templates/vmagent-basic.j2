@@ -1,0 +1,65 @@
+global:
+  scrape_interval: 1m
+  scrape_timeout: 10s
+
+# Self scrape configs
+scrape_configs:
+  - job_name: vmagent self
+    static_configs:
+      - targets: ['{{ inventory_hostname }}:8429']
+
+  - job_name: victoriametrics self
+    static_configs:
+      - targets: ['{{ inventory_hostname }}:8428']
+
+  - job_name: blackbox self
+    static_configs:
+      - targets: ['{{ inventory_hostname }}:9115']
+
+  - job_name: vmalert self
+    static_configs:
+      - targets: ['{{ inventory_hostname }}:8880']
+
+  - job_name: alertmanager self
+    static_configs:
+      - targets: ['{{ inventory_hostname }}:9093']
+
+  - job_name: Server Metrics # Use node exporter on each end-point to scrape metrics
+    metrics_path: /metrics
+    file_sd_configs:
+      - files:
+        - /etc/vmagent/server_scrape.yml
+
+  - job_name: Blackbox ssh # Monitors status of ssh conectivety externally
+    metrics_path: /probe
+    params:
+      module: [ssh_banner]
+    scrape_interval: 1m
+    scrape_timeout: 3s
+    file_sd_configs:
+      - files:
+        - /etc/vmagent/blackbox_ssh.yml
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: docker-dev.whemhome:9115  # The blackbox exporter’s real hostname:port
+
+  - job_name: blackbox ping
+    metrics_path: /probe
+    params:
+      module: [icmp]
+    scrape_interval: 1m
+    scrape_timeout: 3s
+    file_sd_configs:
+      - files:
+        - /etc/vmagent/blackbox_ping.yml
+    relabel_configs:    # <== This comes from the blackbox exporter README
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: docker-dev.whemhome:9115  # The blackbox exporter’s real hostname:port.

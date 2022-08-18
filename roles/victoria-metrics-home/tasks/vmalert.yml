@@ -1,0 +1,53 @@
+---
+#firewall rules for port 8880
+- name: Open port 8880
+  firewalld: 
+    port: 8880/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
+
+#mkdir /etc/vmalert
+- name: Create config directory /etc/vmalert
+  ansible.builtin.file:
+    path: /etc/vmalert/alerts
+    state: directory
+    owner: vicstack
+    group: vicstack
+    mode: "774"
+
+#create basic config yml
+- name: Create basic alerting config
+  copy:
+    src: vmalert-basic.txt
+    dest: /etc/vmalert/alerts/vmalert.yml
+    owner: vicstack
+    group: vicstack        
+    mode: "774"
+
+#create systemd service file in /etc/systemd/system
+- name: Create vmalert service in /etc/systemd/system
+  copy:
+    src: vmalert-service.txt
+    dest: /etc/systemd/system/vmalert.service
+    owner: root
+    group: root        
+    mode: "644"
+
+#reload systemd
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+#enable service
+- name: Enable and start vmalert service
+  service:
+    name: vmalert.service
+    enabled: yes
+    state: started
+
+- name: Check if vmalert is running
+  command: systemctl status vmalert
+  ignore_errors: yes
+  changed_when: false

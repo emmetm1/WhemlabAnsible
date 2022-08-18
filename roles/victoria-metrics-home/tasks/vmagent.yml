@@ -1,0 +1,71 @@
+---
+#DL binary from GH
+- name: Place vmagent and other utils from GH in /usr/local/bin
+  unarchive:
+    src: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.80.0/vmutils-linux-amd64-v1.80.0.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+    owner: root
+    group: root
+
+#firewall rules for port 8429
+- name: Open port 8429
+  firewalld: 
+    port: 8429/tcp
+    permanent: yes
+    immediate: yes
+    state: enabled
+    zone: public
+
+#create storage folder in /var/lib/vmagent-remotewrite-data
+- name: Create storage directory at /var/lib/vmagent-remotewrite-data
+  ansible.builtin.file:
+    path: /var/lib/vmagent-remotewrite-data
+    state: directory
+    owner: vicstack
+    group: vicstack
+    mode: "774"
+
+#mkdir /etc/vmagent
+- name: Create config directory /etc/vmagent
+  ansible.builtin.file:
+    path: /etc/vmagent
+    state: directory
+    owner: vicstack
+    group: vicstack
+    mode: "774"
+
+#create basic config yml
+- name: Create basic scrape config
+  template:
+    src: vmagent-basic.j2
+    dest: /etc/vmagent/vmagent.yml
+    owner: vicstack
+    group: vicstack        
+    mode: "774"
+
+#create systemd service file in /etc/systemd/system
+- name: Create vmagent service in /etc/systemd/system
+  copy:
+    src: vmagent-service.txt
+    dest: /etc/systemd/system/vmagent.service
+    owner: root
+    group: root        
+    mode: "644"
+
+#reload systemd
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+#enable service
+- name: Enable and start vmagent service
+  service:
+    name: vmagent.service
+    enabled: yes
+    state: started
+
+- name: Check if vmagent is running
+  command: systemctl status vmagent
+  ignore_errors: yes
+  changed_when: false

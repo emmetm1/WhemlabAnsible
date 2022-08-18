@@ -1,0 +1,24 @@
+[Unit]
+Description=Checks scrape data against alert rules
+After=network.target
+
+[Service]
+Type=simple
+User=vicstack
+Group=vicstack
+StartLimitBurst=5
+StartLimitInterval=0
+Restart=on-failure
+RestartSec=1
+ExecStart=/usr/local/bin/vmalert-prod \
+         --datasource.url=http://127.0.0.1:8428/ \
+         --remoteRead.url=http://127.0.0.1:8428/ \
+         --remoteWrite.url=http://127.0.0.1:8428/ \
+         --notifier.url=http://127.0.0.1:9093/ \
+         --rule=/etc/vmalert/alerts/*.yml 
+ExecStop=/bin/kill -s SIGTERM $MAINPID
+LimitNOFILE=65536
+LimitNPROC=32000
+
+[Install]
+WantedBy=multi-user.target

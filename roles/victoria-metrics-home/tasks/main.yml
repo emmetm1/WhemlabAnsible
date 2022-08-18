@@ -1,0 +1,23 @@
+---
+- name: Instal Victoria Metrics as a service
+  include: vicmets.yml
+  tags: victoria-install
+
+- name: Instal VMagent as a service and provide basic config
+  include: vmagent.yml
+  tags: vmagent-install
+
+- name: Instal Blackbox Exporter as a service and provide basic config
+  include: blackbox.yml
+  tags: blackbox-install
+
+- name: Instal alertmanager as a service and provide basic config
+  include: alertmanager.yml
+  tags: alertmanager-install
+
+- name: Instal vmalert as a service and provide basic config
+  include: vmalert.yml
+  tags: vmalert-install
+
+
+  
