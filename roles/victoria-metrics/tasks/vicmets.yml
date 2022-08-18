@@ -8,19 +8,19 @@
     zone: public
 
 #Create group
-- name: Ensure system group victoria-metrics exists
+- name: Ensure system group vicstack exists
   group:
-    name: victoria-metrics
+    name: vicstack
     state: present
     system: yes
 
 #Create user
-- name: Add system user victoria-metrics 
+- name: Add system user vicstack 
   user:
-    name: victoria-metrics
+    name: vicstack
     shell: /sbin/nologin 
-    home: /var/lib/victoria-metrics-data
-    group: victoria-metrics
+    create_home: no
+    group: vicstack
     system: yes    
 
 #DL binary from GH
@@ -37,8 +37,8 @@
   ansible.builtin.file:
     path: /var/lib/victoria-metrics-data
     state: directory
-    owner: victoria-metrics
-    group: victoria-metrics
+    owner: vicstack
+    group: vicstack
     mode: "774"
 
 #create systemd service file in /etc/systemd/system

@@ -16,13 +16,22 @@
     state: enabled
     zone: public
 
+#create storage folder in /var/lib/vmagent-remotewrite-data
+- name: Create storage directory at /var/lib/vmagent-remotewrite-data
+  ansible.builtin.file:
+    path: /var/lib/vmagent-remotewrite-data
+    state: directory
+    owner: vicstack
+    group: vicstack
+    mode: "774"
+
 #mkdir /etc/vmagent
 - name: Create config directory /etc/vmagent
   ansible.builtin.file:
     path: /etc/vmagent
     state: directory
-    owner: root
-    group: root
+    owner: vicstack
+    group: vicstack
     mode: "774"
 
 #create basic config yml
@@ -30,8 +39,8 @@
   template:
     src: vmagent-basic.j2
     dest: /etc/vmagent/vmagent.yml
-    owner: root
-    group: root        
+    owner: vicstack
+    group: vicstack        
     mode: "774"
 
 #create systemd service file in /etc/systemd/system

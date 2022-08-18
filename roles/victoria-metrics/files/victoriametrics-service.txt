@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-User=victoria-metrics
-Group=victoria-metrics
+User=vicstack
+Group=vicstack
 StartLimitBurst=5
 StartLimitInterval=0
 Restart=on-failure
