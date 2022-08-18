@@ -24,3 +24,6 @@
     owner: vicstack
     group: vicstack        
     mode: "774"
+
+- name: reload config
+  command: systemctl status vmalert
