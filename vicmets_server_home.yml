@@ -1,0 +1,4 @@
+---
+- hosts: vicmets
+  roles:
+    - victoria-metrics-home
