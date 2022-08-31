@@ -19,7 +19,7 @@
   include: vmalert.yml
   tags: vmalert-install
 
-- name: configure grafana
-  include: grafana-config.yml
-  tags: grafana-config
+- name: install grafana
+  include: grafana.yml
+  tags: grafana-install
   

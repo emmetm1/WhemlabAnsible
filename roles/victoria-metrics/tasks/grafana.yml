@@ -13,3 +13,15 @@
     name: grafana
     state: latest
     update_cache: yes
+
+#enable service
+- name: Enable and start grafana service
+  service:
+    name: grafana-server.service
+    enabled: yes
+    state: started
+
+- name: Check if grafana is running
+  command: systemctl status grafana-server
+  ignore_errors: yes
+  changed_when: false
