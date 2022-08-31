@@ -1,0 +1,15 @@
+---
+- name: Add grafana repo
+  yum_repository:
+    name: grafana
+    description: grafana YUM repository
+    baseurl: https://packages.grafana.com/oss/rpm
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: https://packages.grafana.com/gpg.key
+
+- name: Install grafana
+  dnf:
+    name: grafana
+    state: latest
+    update_cache: yes

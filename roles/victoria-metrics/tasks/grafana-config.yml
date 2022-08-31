@@ -1,0 +1,5 @@
+- name: Add data source
+  uri:
+    url: https://127.0.0.1:3000/api/datasources
+    method: POST
+    src: vicmets-source.json

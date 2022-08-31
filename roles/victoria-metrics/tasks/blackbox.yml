@@ -32,8 +32,8 @@
   ansible.builtin.file:
     path: /etc/blackbox
     state: directory
-    owner: root
-    group: root
+    owner: vicstack
+    group: vicstack
     mode: "774"
 
 #create basic config yml
@@ -41,8 +41,8 @@
   copy:
     src: blackbox.yml
     dest: /etc/blackbox/blackbox.yml
-    owner: root
-    group: root        
+    owner: vicstack
+    group: vicstack        
     mode: "774"
 
 #create systemd service file in /etc/systemd/system

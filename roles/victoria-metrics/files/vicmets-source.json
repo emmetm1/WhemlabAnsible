@@ -1,0 +1,6 @@
+{
+    "name":"victoria",
+    "type":"prometheus",
+    "url":"http://127.0.0.1:8428",
+    "basicAuth":false
+  }
