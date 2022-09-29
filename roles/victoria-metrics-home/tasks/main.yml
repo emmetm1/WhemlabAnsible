@@ -19,6 +19,6 @@
   include: vmalert.yml
   tags: vmalert-install
 
-- name: Update scrapes
+- name: Update config
   include: update-scrapes.yml
-  tags: scrape-update
+  tags: config-update
