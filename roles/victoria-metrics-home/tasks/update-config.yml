@@ -1,3 +1,5 @@
 - git:
     repo: 'https://github.com/emmetm1/WhemlabAnsible.git'
     dest: /srv/checkout
+    clone: yes
+    update: yes
