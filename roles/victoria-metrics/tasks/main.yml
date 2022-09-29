@@ -1,4 +1,8 @@
 ---
+- name: configure systemd-resolved
+  include: systemd-resolved.yml
+  tags: resolved-config
+
 - name: install Victoria Metrics as a service
   include: vicmets.yml
   tags: victoria-install
@@ -22,4 +26,3 @@
 - name: install grafana
   include: grafana.yml
   tags: grafana-install
-  

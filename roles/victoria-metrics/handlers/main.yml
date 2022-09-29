@@ -8,3 +8,8 @@
   service:
     name: grafana-server
     state: restarted
+
+- name: restart systemd-resolved
+  service:
+    name: systemd-resolved.service
+    state: restarted

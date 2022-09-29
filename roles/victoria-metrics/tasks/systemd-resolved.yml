@@ -1,0 +1,15 @@
+- name: systemd-resolved service
+  service:
+    name: systemd-resolved.service
+    enabled: yes
+    state: started
+
+- name: create resolv.conf backup
+  copy:
+    src: /etc/resolv.conf
+    dest: /etc/resolv.conf.bak
+    remote_src: yes
+
+- name: link 
+  ansible.builtin.command: ln -rsf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+  notify: restart systemd-resolved
