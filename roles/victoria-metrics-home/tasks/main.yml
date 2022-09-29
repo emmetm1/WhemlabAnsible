@@ -20,5 +20,5 @@
   tags: vmalert-install
 
 - name: Update config
-  include: update-scrapes.yml
+  include: update-config.yml
   tags: config-update
