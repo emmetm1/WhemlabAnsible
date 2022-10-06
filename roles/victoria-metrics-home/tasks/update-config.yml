@@ -7,8 +7,8 @@
 #update vmagent configs yml
 - name: Create basic scrape config
   copy:
-    src: /tmp/ansible/WhemlabAnsible/roles/victoria-metrics-home/files/vmagent/
-    dest: /etc/vmagent/vmagent.yml
+    src: /tmp/ansible/vicmets/roles/victoria-metrics-home/files/vmagent
+    dest: /etc/vmagent
     remote_src: yes
     backup: yes
     owner: vicstack

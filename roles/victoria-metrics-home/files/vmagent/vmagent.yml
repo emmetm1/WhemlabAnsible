@@ -28,7 +28,7 @@ scrape_configs:
     metrics_path: /metrics
     file_sd_configs:
       - files:
-        - /etc/vmagent/node_exporter/server_scrape.yml
+        - /etc/vmagent/home/node_exporter/server_scrape.yml
 
   - job_name: Blackbox ssh # Monitors status of ssh conectivety externally
     metrics_path: /probe
@@ -38,14 +38,14 @@ scrape_configs:
     scrape_timeout: 3s
     file_sd_configs:
       - files:
-        - /etc/vmagent/blackbox_ssh.yml
+        - /etc/vmagent/home/blackbox/blackbox_ssh.yml
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: docker-dev.whemhome:9115  # The blackbox exporter’s real hostname:port
+        replacement: 127.0.0.1:9115  # The blackbox exporter’s real hostname:port
 
   - job_name: blackbox ping
     metrics_path: /probe
@@ -55,11 +55,11 @@ scrape_configs:
     scrape_timeout: 3s
     file_sd_configs:
       - files:
-        - /etc/vmagent/blackbox_ping.yml
+        - /etc/vmagent/home/blackbox/blackbox_ping.yml
     relabel_configs:    # <== This comes from the blackbox exporter README
       - source_labels: [__address__]
         target_label: __param_target
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: docker-dev.whemhome:9115  # The blackbox exporter’s real hostname:port.
+        replacement: 127.0.0.1:9115  # The blackbox exporter’s real hostname:port.
