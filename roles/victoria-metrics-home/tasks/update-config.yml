@@ -14,10 +14,7 @@
     owner: vicstack
     group: vicstack        
     mode: "774"
-
-- name: reload vmagent config
-  uri:
-    url: http://192.168.50.86:8429/-/reload
+  notify: reload vmagent config
 
 #update vmagent configs yml
 - name: blackbox config
@@ -29,11 +26,11 @@
     owner: vicstack
     group: vicstack        
     mode: "774"
+  notify: restart blackbox
 
 - name: Check if blackbox is running
   command: systemctl status blackbox
   ignore_errors: yes
-  changed_when: false
 
 - name: alertmanager config
   copy:
@@ -44,12 +41,11 @@
     owner: vicstack
     group: vicstack        
     mode: "774"
+  notify: restart alertmanager
 
-- name: restart alertmanager service
-  service:
-    name: alertmanager.service
-    enabled: yes
-    state: restarted
+- name: Check if blackbox is running
+  command: systemctl status alertmanager
+  ignore_errors: yes
 
 - name: vmalert config
   copy:
@@ -60,10 +56,7 @@
     owner: vicstack
     group: vicstack        
     mode: "774"
-
-- name: reload vmalert config
-  uri:
-    url: http://192.168.50.86:8880/-/reload
+  notify: reload vmalert config
 
 #https://smee.io/0QbeIDKJGdWy02
 

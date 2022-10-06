@@ -1,0 +1,33 @@
+---
+- name: restart firewalld
+  service:
+    name: firewalld
+    state: restarted
+
+- name: restart grafana
+  service:
+    name: grafana-server
+    state: restarted
+
+- name: restart systemd-resolved
+  service:
+    name: systemd-resolved.service
+    state: restarted
+
+- name: restart blackbox
+  service:
+    name: blackbox
+    state: restarted
+
+- name: restart alertmanager
+  service:
+    name: alertmanager
+    state: restarted
+
+- name: reload vmagent config
+  uri:
+    url: http://192.168.50.86:8429/-/reload
+
+- name: reload vmalert config
+  uri:
+    url: http://192.168.50.86:8880/-/reload
