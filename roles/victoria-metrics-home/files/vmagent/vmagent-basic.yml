@@ -28,7 +28,7 @@ scrape_configs:
     metrics_path: /metrics
     file_sd_configs:
       - files:
-        - /etc/vmagent/server_scrape.yml
+        - /etc/vmagent/node_exporter/server_scrape.yml
 
   - job_name: Blackbox ssh # Monitors status of ssh conectivety externally
     metrics_path: /probe

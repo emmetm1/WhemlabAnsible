@@ -1,5 +1,32 @@
 - git:
     repo: 'https://github.com/emmetm1/WhemlabAnsible.git'
-    dest: /srv/checkout
+    dest: /tmp/ansible/vicmets
     clone: yes
     update: yes
+
+#update vmagent configs yml
+- name: Create basic scrape config
+  copy:
+    src: /tmp/ansible/WhemlabAnsible/roles/victoria-metrics-home/files/vmagent/
+    dest: /etc/vmagent/vmagent.yml
+    remote_src: yes
+    backup: yes
+    owner: vicstack
+    group: vicstack        
+    mode: "774"
+
+- name: reload vmagent config
+  uri:
+    url: http://192.168.50.86:8429/-/reload
+
+
+
+
+
+
+
+
+
+#https://smee.io/0QbeIDKJGdWy02
+
+#https://ansible.whemhome:443/api/v2/job_templates/13/github/
