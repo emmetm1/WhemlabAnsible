@@ -20,8 +20,8 @@
 #create basic config yml
 - name: Create basic alerting config
   copy:
-    src: vmalert-basic.txt
-    dest: /etc/vmalert/alerts/vmalert.yml
+    src: vmalert/
+    dest: /etc/vmalert/alerts
     owner: vicstack
     group: vicstack        
     mode: "774"
