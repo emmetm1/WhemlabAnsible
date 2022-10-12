@@ -1,3 +1,4 @@
+#pull down current config
 - git:
     repo: 'https://github.com/emmetm1/WhemlabAnsible.git'
     dest: /tmp/ansible/vicmets
@@ -16,7 +17,7 @@
     mode: "774"
   notify: reload vmagent config
 
-#update vmagent configs yml
+#update blackbox configs yml
 - name: blackbox config
   copy:
     src: /tmp/ansible/vicmets/roles/victoria-metrics-home/files/blackbox.yml
@@ -28,10 +29,7 @@
     mode: "774"
   notify: restart blackbox
 
-- name: Check if blackbox is running
-  command: systemctl status blackbox
-  ignore_errors: yes
-
+#update alertmanager configs yml
 - name: alertmanager config
   copy:
     src: /tmp/ansible/vicmets/roles/victoria-metrics-home/files/alertmanager-basic.yml
@@ -43,10 +41,7 @@
     mode: "774"
   notify: restart alertmanager
 
-- name: Check if blackbox is running
-  command: systemctl status alertmanager
-  ignore_errors: yes
-
+#update vmalert configs yml
 - name: vmalert config
   copy:
     src: /tmp/ansible/vicmets/roles/victoria-metrics-home/files/vmalert/
@@ -57,7 +52,3 @@
     group: vicstack        
     mode: "774"
   notify: reload vmalert config
-
-#https://smee.io/0QbeIDKJGdWy02
-
-#https://ansible.whemhome:443/api/v2/job_templates/13/github/
