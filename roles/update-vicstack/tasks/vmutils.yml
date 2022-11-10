@@ -1,0 +1,41 @@
+---
+- name: stop vmagent
+  service:
+    name: vmagent
+    state: stopped
+
+- name: stop vmalert
+  service:
+    name: vmalert
+    state: stopped
+  notify: "restart vmutils"
+
+- name: Place vmagent, vmalert, and other utils from GH in /usr/local/bin
+  unarchive:
+    src: "{{ vmutils_download_url }}"
+    dest: /usr/local/bin
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+
+- name: restart vmagent and vmalert
+  meta: flush_handlers
+
+- name: Give vmagent/alert time to become responsive 
+  ansible.builtin.pause:
+    seconds: 10
+
+- name: Verify vmagent is responding to requests.
+  uri:
+    url: "http://localhost:8429"
+    return_content: true
+  register: metrics_output
+  failed_when: "'metrics' not in metrics_output.content"
+
+- name: Verify vmalert is responding to requests.
+  uri:
+    url: "http://localhost:8880"
+    return_content: true
+  register: metrics_output
+  failed_when: "'metrics' not in metrics_output.content"

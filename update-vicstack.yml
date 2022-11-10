@@ -1,0 +1,4 @@
+---
+- hosts: vicmets
+  roles:
+    - update-vicstack

@@ -1,0 +1,26 @@
+- name: restart blackbox
+  service:
+    name: blackbox
+    state: restarted
+
+- name: restart alertmanager
+  service:
+    name: alertmanager
+    state: restarted
+
+- name: restart vmagent
+  service:
+    name: vmagent
+    state: restarted
+  listen: "restart vmutils"
+
+- name: restart vmalert
+  service:
+    name: vmalert
+    state: restarted
+  listen: "restart vmutils"
+
+- name: restart victoriametrics
+  service:
+    name: victoriametrics
+    state: restarted

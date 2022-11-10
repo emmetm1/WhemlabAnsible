@@ -1,0 +1,29 @@
+---
+- name: stop victoriametrics
+  service:
+    name: victoriametrics
+    state: stopped
+  notify: "restart victoriametrics"
+
+- name: Place victoriametrics in /usr/local/bin
+  unarchive:
+    src: "{{ victoria_metrics_download_url }}"
+    dest: /usr/local/bin
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 0755
+
+- name: restart Victoria Metrics
+  meta: flush_handlers
+
+- name: Give Victoria Metrics time to become responsive 
+  ansible.builtin.pause:
+    seconds: 10
+
+- name: Verify Victoria Metrics is responding to requests.
+  uri:
+    url: "http://localhost:8428"
+    return_content: true
+  register: metrics_output
+  failed_when: "'metrics' not in metrics_output.content"

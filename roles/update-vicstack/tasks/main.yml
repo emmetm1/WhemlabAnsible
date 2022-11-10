@@ -1,0 +1,16 @@
+---
+- name: Update Victoria Metrics
+  include: victoria-metrics.yml
+  tags: victoria-update
+
+- name: Update vmutils
+  include: vmutils.yml
+  tags: vmutils-update
+
+- name: Update Blackbox Exporter
+  include: blackbox.yml
+  tags: blackbox-update
+
+- name: Update alertmanager
+  include: alertmanager.yml
+  tags: alertmanager-update

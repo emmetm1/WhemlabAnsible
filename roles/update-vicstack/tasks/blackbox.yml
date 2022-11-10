@@ -1,0 +1,37 @@
+---
+- name: stop blackbox
+  service:
+    name: blackbox
+    state: stopped
+  notify: "restart blackbox"
+
+- name: unpack blackbox in /tmp
+  unarchive:
+    src: "{{ blackbox_download_url }}"
+    dest: /tmp
+    remote_src: yes
+    owner: root
+    group: root
+
+- name: Move blackbox binary into /usr/local/bin
+  copy:
+    src: /tmp/blackbox_exporter-{{ blackbox_version }}.linux-{{ system_arch }}/blackbox_exporter
+    dest: /usr/local/bin
+    remote_src: yes
+    owner: root
+    group: root        
+    mode: 0755
+
+- name: restart blackbox
+  meta: flush_handlers
+
+- name: Give blackbox time to become responsive 
+  ansible.builtin.pause:
+    seconds: 10
+
+- name: Verify blackbox is responding to requests.
+  uri:
+    url: "http://127.0.0.1:9115/metrics"
+    return_content: true
+  register: metrics_output
+  failed_when: "'metric' not in metrics_output.content"

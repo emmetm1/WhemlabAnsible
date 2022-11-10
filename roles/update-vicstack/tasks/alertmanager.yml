@@ -1,0 +1,37 @@
+---
+- name: stop alertmanager
+  service:
+    name: alertmanager
+    state: stopped
+  notify: "restart alertmanager"
+
+- name: unpack alertmanager in /tmp
+  unarchive:
+    src: "{{ alertmanager_download_url }}"
+    dest: /tmp
+    remote_src: yes
+    owner: root
+    group: root
+
+- name: Move alertmanager binary into /usr/local/bin
+  copy:
+    src: /tmp/alertmanager-{{ alertmanager_version }}.linux-{{ system_arch }}/alertmanager
+    dest: /usr/local/bin
+    remote_src: yes
+    owner: root
+    group: root        
+    mode: 0755
+
+- name: restart alertmanager
+  meta: flush_handlers
+
+- name: Give alertmanager time to become responsive 
+  ansible.builtin.pause:
+    seconds: 10
+
+- name: Verify alertmanager is responding to requests.
+  uri:
+    url: "http://127.0.0.1:9093/api/v2/status"
+    return_content: true
+  register: ready_output
+  failed_when: "'ready' not in ready_output.content"

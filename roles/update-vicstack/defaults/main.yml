@@ -1,0 +1,19 @@
+---
+# System Settings
+system_arch: 'amd64'
+
+# See available releases: https://github.com/VictoriaMetrics/VictoriaMetrics/releases
+victoria_metrics_version: '1.83.0'
+victoria_metrics_download_url: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v{{ victoria_metrics_version}}/victoria-metrics-linux-{{ system_arch }}-v{{ victoria_metrics_version}}.tar.gz
+
+# See available releases: https://github.com/VictoriaMetrics/VictoriaMetrics/releases
+vmutils_version: '1.83.0'
+vmutils_download_url: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v{{ vmutils_version }}/vmutils-linux-{{ system_arch }}-v{{ vmutils_version }}.tar.gz
+
+# See available releases: https://github.com/prometheus/alertmanager/releases
+alertmanager_version: '0.24.0'
+alertmanager_download_url: https://github.com/prometheus/alertmanager/releases/download/v{{ alertmanager_version }}/alertmanager-{{ alertmanager_version }}.linux-{{ system_arch }}.tar.gz
+
+# See available releases: https://github.com/prometheus/blackbox_exporter/releases
+blackbox_version: '0.22.0'
+blackbox_download_url: https://github.com/prometheus/blackbox_exporter/releases/download/v{{ blackbox_version }}/blackbox_exporter-{{ blackbox_version }}.linux-{{ system_arch }}.tar.gz
