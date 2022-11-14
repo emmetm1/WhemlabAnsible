@@ -1,9 +1,7 @@
 ---
-- name: stop blackbox
-  service:
-    name: blackbox
-    state: stopped
-  notify: "restart blackbox"
+- name: Check specified version ({{ blackbox_version }}) exists before stopping service
+  ansible.builtin.uri:
+    url: "{{ blackbox_download_url }}"
 
 - name: unpack blackbox in /tmp
   unarchive:
@@ -12,6 +10,12 @@
     remote_src: yes
     owner: root
     group: root
+
+- name: stop blackbox
+  service:
+    name: blackbox
+    state: stopped
+  notify: "restart blackbox"
 
 - name: Move blackbox binary into /usr/local/bin
   copy:

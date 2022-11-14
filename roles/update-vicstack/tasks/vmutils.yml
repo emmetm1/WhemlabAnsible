@@ -1,4 +1,8 @@
 ---
+- name: Check specified version ({{ vmutils_version }}) exists before stopping service
+  ansible.builtin.uri:
+    url: "{{ vmutils_download_url }}"
+
 - name: stop vmagent
   service:
     name: vmagent

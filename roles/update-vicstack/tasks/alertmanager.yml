@@ -1,9 +1,7 @@
 ---
-- name: stop alertmanager
-  service:
-    name: alertmanager
-    state: stopped
-  notify: "restart alertmanager"
+- name: Check specified version ({{ alertmanager_version }}) exists before stopping service
+  ansible.builtin.uri:
+    url: "{{ alertmanager_download_url }}"
 
 - name: unpack alertmanager in /tmp
   unarchive:
@@ -12,6 +10,12 @@
     remote_src: yes
     owner: root
     group: root
+
+- name: stop alertmanager
+  service:
+    name: alertmanager
+    state: stopped
+  notify: "restart alertmanager"
 
 - name: Move alertmanager binary into /usr/local/bin
   copy:

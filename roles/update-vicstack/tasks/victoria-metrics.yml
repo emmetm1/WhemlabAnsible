@@ -1,4 +1,8 @@
 ---
+- name: Check specified version ({{ victoria_metrics_version }}) exists before stopping service
+  ansible.builtin.uri:
+    url: "{{ victoria_metrics_download_url }}"
+
 - name: stop victoriametrics
   service:
     name: victoriametrics
