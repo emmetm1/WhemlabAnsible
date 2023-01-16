@@ -1,0 +1,6 @@
+---
+- name: Ensure tempmon is running
+  service:
+    name: tempmon
+    state: started
+    enabled: yes

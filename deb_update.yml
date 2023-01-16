@@ -1,0 +1,4 @@
+---
+- hosts: DebUp
+  roles:
+    - deb_update
