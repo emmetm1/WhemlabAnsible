@@ -1,0 +1,4 @@
+---
+- hosts: pihole
+  roles:
+    - pihole_update

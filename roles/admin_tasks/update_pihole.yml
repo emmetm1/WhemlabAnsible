@@ -1,7 +1,0 @@
----
-- hosts: pihole
-
-  tasks:
-  - name: Update pi hole
-    ansible.builtin.shell:
-        cmd: pihole -up
