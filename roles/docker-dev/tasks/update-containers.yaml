@@ -1,0 +1,12 @@
+---
+- name: stop vicmets
+  shell: 
+    cmd: docker compose -f /root/vicmets-stack/docker-compose.yaml down
+
+- name: pull vicmets
+  shell: 
+    cmd: docker compose -f /root/vicmets-stack/docker-compose.yaml pull
+
+- name: restart vicmets
+  shell: 
+    cmd: docker compose -f /root/vicmets-stack/docker-compose.yaml up -d

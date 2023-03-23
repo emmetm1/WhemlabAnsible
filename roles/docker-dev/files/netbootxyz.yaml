@@ -1,0 +1,15 @@
+services:
+  netbootxyz:
+    image: lscr.io/linuxserver/netbootxyz:latest
+    container_name: netbootxyz
+    environment:
+      - PUID=0
+      - PGID=0
+    volumes:
+      - ./config:/config
+      - ./assets:/assets #optional
+    ports:
+      - 3000:3001
+      - 69:69/udp
+      - 8080:81 #optional
+    restart: unless-stopped

@@ -1,0 +1,11 @@
+services:
+  muse:
+    image: codetheweb/muse:latest
+    restart: always
+    volumes:
+      - ./muse:/data
+    environment:
+      - DISCORD_TOKEN=MTA3MzY3MTM0MDYwMDU5ODU0MA.GFGrhD.QnJKA1ePqEC6jZd13p1jrLc54sg_jWemLR3Ut0
+      - YOUTUBE_API_KEY=AIzaSyCccWsISucBoxARIJr0E1HOjcjW_8uQoeA
+      - SPOTIFY_CLIENT_ID=aa24d72cddfb4729a8687a37ceaa7067
+      - SPOTIFY_CLIENT_SECRET=fe176c23ca9049ca920c8bcd001a19d9

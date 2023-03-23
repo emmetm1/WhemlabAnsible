@@ -1,0 +1,57 @@
+services:
+  vmagent:
+    image: victoriametrics/vmagent
+    restart: unless-stopped
+    ports:
+      - 8429:8429
+    volumes:
+      - ./vmagent:/etc/vmagent
+      - ./vmagent:/vmagentdata
+    command: 
+      - "-promscrape.config=/etc/vmagent/vmagent.yml"
+      - "-remoteWrite.url=http://192.168.50.169:8428/api/v1/write"
+
+  vmalert:
+    container_name: vmalert
+    image: victoriametrics/vmalert
+    restart: unless-stopped
+    ports:
+      - 8880:8880
+    volumes:
+      - ./vmalert:/etc/alerts/
+    command:
+      - "--datasource.url=http://192.168.50.169:8428/"
+      - "--remoteRead.url=http://192.168.50.169:8428/"
+      - "--remoteWrite.url=http://192.168.50.169:8428/"
+      - "--notifier.url=http://192.168.50.169:9093/"
+      - "--rule=/etc/alerts/*.yml"
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    restart: unless-stopped
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+      - alertmanager-data:/data
+    command: --config.file=/etc/alertmanager/alertmanager.yml
+
+  victoria-metrics:
+    image: victoriametrics/victoria-metrics:latest
+    restart: unless-stopped
+    ports:
+      - 8428:8428
+    volumes:
+      - ./victoria:/victoria-metrics-data
+
+  blackboxexport:
+    image: prom/blackbox-exporter:latest
+    restart: unless-stopped
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./blackbox:/config
+    command: --config.file=/config/config.yml
+
+volumes:
+  alertmanager-data:
