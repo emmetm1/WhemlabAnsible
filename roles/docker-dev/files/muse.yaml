@@ -1,7 +1,7 @@
 services:
   muse:
     image: codetheweb/muse:latest
-    restart: always
+    restart: unless-stopped
     volumes:
       - ./muse:/data
     env_file:
