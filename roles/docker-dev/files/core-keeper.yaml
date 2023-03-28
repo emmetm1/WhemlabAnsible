@@ -2,8 +2,8 @@ services:
   core-keeper:
     image: tedtramonte/core-keeper-server
     volumes:
-      - /home/docker/core_keeper/server_data:/data
+      - ./server_data:/data
     env_file:
-      - /home/docker/core_keeper/core.env
+      - ./core.env
     restart: unless-stopped
     stop_grace_period: 2m
