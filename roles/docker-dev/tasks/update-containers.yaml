@@ -1,12 +1,84 @@
 ---
 - name: stop vicmets
   shell: 
-    cmd: docker compose -f /root/vicmets-stack/docker-compose.yaml down
+    cmd: docker compose -f /root/docker/vicmets-stack/docker-compose.yaml down
 
 - name: pull vicmets
   shell: 
-    cmd: docker compose -f /root/vicmets-stack/docker-compose.yaml pull
+    cmd: docker compose -f /root/docker/vicmets-stack/docker-compose.yaml pull
 
 - name: restart vicmets
   shell: 
-    cmd: docker compose -f /root/vicmets-stack/docker-compose.yaml up -d
+    cmd: docker compose -f /root/docker/vicmets-stack/docker-compose.yaml up -d
+
+- name: stop core keeper
+  shell: 
+    cmd: docker compose -f /root/docker/core_keeper/docker-compose.yaml down
+
+- name: pull core keeper
+  shell: 
+    cmd: docker compose -f /root/docker/core_keeper/docker-compose.yaml pull
+
+- name: restart core keeper
+  shell: 
+    cmd: docker compose -f /root/docker/core_keeper/docker-compose.yaml up -d
+
+- name: stop minecraft
+  shell: 
+    cmd: docker compose -f /root/docker/minecraft/docker-compose.yaml down
+
+- name: pull minecraft
+  shell: 
+    cmd: docker compose -f /root/docker/minecraft/docker-compose.yaml pull
+
+- name: restart minecraft
+  shell: 
+    cmd: docker compose -f /root/docker/minecraft/docker-compose.yaml up -d
+
+- name: stop muse
+  shell: 
+    cmd: docker compose -f /root/docker/muse/docker-compose.yaml down
+
+- name: pull muse
+  shell: 
+    cmd: docker compose -f /root/docker/muse/docker-compose.yaml pull
+
+- name: restart muse
+  shell: 
+    cmd: docker compose -f /root/docker/muse/docker-compose.yaml up -d
+
+- name: stop netbootxyz
+  shell: 
+    cmd: docker compose -f /root/docker/netbootxyz/docker-compose.yaml down
+
+- name: pull netbootxyz
+  shell: 
+    cmd: docker compose -f /root/docker/netbootxyz/docker-compose.yaml pull
+
+- name: restart netbootxyz
+  shell: 
+    cmd: docker compose -f /root/docker/netbootxyz/docker-compose.yaml up -d
+
+- name: stop valheim
+  shell: 
+    cmd: docker compose -f /root/docker/valheim/docker-compose.yaml down
+
+- name: pull valheim
+  shell: 
+    cmd: docker compose -f /root/docker/valheim/docker-compose.yaml pull
+
+- name: restart valheim
+  shell: 
+    cmd: docker compose -f /root/docker/valheim/docker-compose.yaml up -d
+
+- name: stop loki-stack
+  shell: 
+    cmd: docker compose -f /root/docker/loki-stack/docker-compose.yaml down
+
+- name: pull loki-stack
+  shell: 
+    cmd: docker compose -f /root/docker/loki-stack/docker-compose.yaml pull
+
+- name: restart loki-stack
+  shell: 
+    cmd: docker compose -f /root/docker/loki-stack/docker-compose.yaml up -d
