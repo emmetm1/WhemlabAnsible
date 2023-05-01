@@ -47,18 +47,6 @@
   shell: 
     cmd: docker compose -f /root/docker/muse/docker-compose.yaml up -d
 
-- name: stop netbootxyz
-  shell: 
-    cmd: docker compose -f /root/docker/netbootxyz/docker-compose.yaml down
-
-- name: pull netbootxyz
-  shell: 
-    cmd: docker compose -f /root/docker/netbootxyz/docker-compose.yaml pull
-
-- name: restart netbootxyz
-  shell: 
-    cmd: docker compose -f /root/docker/netbootxyz/docker-compose.yaml up -d
-
 - name: stop valheim
   shell: 
     cmd: docker compose -f /root/docker/valheim/docker-compose.yaml down
