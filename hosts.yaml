@@ -1,0 +1,68 @@
+all:
+  children:
+    deb:
+      hosts:
+        mediadocker.whemhome:
+          ansible_user: root
+        docker-dev.whemhome:
+          ansible_user: root
+    docker:
+      hosts:
+        docker-dev.whemhome:
+          ansible_user: root
+    K8:
+      hosts:
+        k8-ctrl.whemhome:
+          ansible_user: root
+        k8-node1.whemhome:
+          ansible_user: root
+        k8-node2.whemhome:
+          ansible_user: root
+    rhel:
+      hosts:
+        datagraph.whemhome:
+          ansible_user: root
+        ansible.whemhome:
+          ansible_user: root
+        k8-ctrl.whemhome:
+          ansible_user: root
+        k8-node1.whemhome:
+          ansible_user: root
+        k8-node2.whemhome:
+          ansible_user: root
+    prox:
+      hosts:
+        chazprox2.whemhome:
+          ansible_user: root
+        bobbyprox.whemhome:
+          ansible_user: root
+        chipprox.whemhome:
+          ansible_user: root
+    pi:
+      hosts:
+        raspberrypi.whemhome:
+          ansible_user: pi
+        piZ.whemhome:
+          ansible_user: pi
+    pihole:
+      hosts:
+        pihole.whemhome:
+          ansible_user: root
+        pihole2.whemhome:
+          ansible_user: root
+    DebUp:
+      children:
+        pi: {}
+        prox: {}
+        deb: {}
+        docker: {}
+        pihole: {}
+    NodeExport:
+      children:
+        prox: {}
+        deb: {}
+        rhel: {}
+        docker: {}
+        pihole: {}
+        vicmets: {}
+        K8: {}
